@@ -1,21 +1,38 @@
--     // Needs to run when document has loaded!
--     me.hasIcons = function() {
-  -       var tempElm = document.createElement("span"),
-  -           iconWidth;
-  -
-  -       // Put test icon (e999) in container to see if it renders
-  -       tempElm.innerHTML = "&#xe999;";
-  -       tempElm.id = "has_icons_check";
-  -       document.body.appendChild(tempElm);
-  -       iconWidth = tempElm.offsetWidth;
-  -       document.body.removeChild(tempElm);
-  -
-  -       // If no icon font, width should be 0 or 1em (20px). With icon fonts it should be 200px.
-  -       // This extra wide icon accounts for cross-browser rounding differences in offsetWidth and
-  -       // most CTRL+/CTRL- zoom levels.
-  -       if (iconWidth >= 100)
-  -       {
-    -        return true;
-    -       }
-    -       return false;
-}
+// Needs to run when document has loaded!
+var isFontFaceSupported = (function(){
+
+    var doc = document,
+        body = doc.body || doc.documentElement.appendChild(doc.createElement("fontface")),
+        tempElm = doc.createElement("span"),
+        tempStyle = doc.createElement("style"),
+        iconRatio;
+
+    var otfBase64 = "AAEAAAALAIAAAwAwT1MvMg6v/SkAAAC8AAAAYGNtYXDf7xCeAAABHAAAADxnYXNwAAAAEAAAAVgAAAAIZ2x5ZkVlV2AAAAFgAAAANGhlYWQkZSmBAAABlAAAADZoaGVhK8InxAAAAcwAAAAkaG10eCoAAAAAAAHwAAAADGxvY2EACgAaAAAB/AAAAAhtYXhwAAUABwAAAgQAAAAgbmFtZUQXtNYAAAIkAAABOXBvc3QAAwAAAAADYAAAACAAAwQAAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACDv/wPA/8D/wAPAAEAAAAAAAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEACgAAAAGAAQAAQACACDv////AAAAIO//////4RADAAEAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAP/AKAADwAAEAAATIREhEQAoANgAA8D8AAQAAAAAAQAAAAEAAFmLTKJfDzz1AAsEAAAAAADOovKCAAAAAM6i8oIAAP/AKAADwAAAAAgAAgAAAAAAAAABAAADwP/AAAAoAAAAAAAoAAABAAAAAAAAAAAAAAAAAAAAAwAAAAACAAAAKAAAAAAAAAAACgAaAAEAAAADAAUAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAOAAAAAQAAAAAAAgAOAEcAAQAAAAAAAwAOACQAAQAAAAAABAAOAFUAAQAAAAAABQAWAA4AAQAAAAAABgAHADIAAQAAAAAACgAoAGMAAwABBAkAAQAOAAAAAwABBAkAAgAOAEcAAwABBAkAAwAOACQAAwABBAkABAAOAFUAAwABBAkABQAWAA4AAwABBAkABgAOADkAAwABBAkACgAoAGMAaQBjAG8AbQBvAG8AbgBWAGUAcgBzAGkAbwBuACAAMAAuADAAaQBjAG8AbQBvAG8Abmljb21vb24AaQBjAG8AbQBvAG8AbgBSAGUAZwB1AGwAYQByAGkAYwBvAG0AbwBvAG4ARwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    var eotBase64 = "JAQAAIADAAABAAIAAAAAAAAAAAAAAAAAAAABAJABAAAAAExQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAokyLWQAAAAAAAAAAAAAAAAAAAAAAAA4AaQBjAG8AbQBvAG8AbgAAAA4AUgBlAGcAdQBsAGEAcgAAABYAVgBlAHIAcwBpAG8AbgAgADAALgAwAAAADgBpAGMAbwBtAG8AbwBuAAAAAAAAAQAAAAsAgAADADBPUy8yDq/9KQAAALwAAABgY21hcN/vEJ4AAAEcAAAAPGdhc3AAAAAQAAABWAAAAAhnbHlmRWVXYAAAAWAAAAA0aGVhZCRlKYEAAAGUAAAANmhoZWErwifEAAABzAAAACRobXR4KgAAAAAAAfAAAAAMbG9jYQAKABoAAAH8AAAACG1heHAABQAHAAACBAAAACBuYW1lRBe01gAAAiQAAAE5cG9zdAADAAAAAANgAAAAIAADBAABkAAFAAACmQLMAAAAjwKZAswAAAHrADMBCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAIO//A8D/wP/AA8AAQAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAKAAAAAYABAABAAIAIO////8AAAAg7//////hEAMAAQAAAAAAAAABAAH//wAPAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAA/8AoAAPAAAQAABMhESERACgA2AADwPwABAAAAAABAAAAAQAAWYtMol8PPPUACwQAAAAAAM6i8oIAAAAAzqLyggAA/8AoAAPAAAAACAACAAAAAAAAAAEAAAPA/8AAACgAAAAAACgAAAEAAAAAAAAAAAAAAAAAAAADAAAAAAIAAAAoAAAAAAAAAAAKABoAAQAAAAMABQABAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAA4AAAABAAAAAAACAA4ARwABAAAAAAADAA4AJAABAAAAAAAEAA4AVQABAAAAAAAFABYADgABAAAAAAAGAAcAMgABAAAAAAAKACgAYwADAAEECQABAA4AAAADAAEECQACAA4ARwADAAEECQADAA4AJAADAAEECQAEAA4AVQADAAEECQAFABYADgADAAEECQAGAA4AOQADAAEECQAKACgAYwBpAGMAbwBtAG8AbwBuAFYAZQByAHMAaQBvAG4AIAAwAC4AMABpAGMAbwBtAG8AbwBuaWNvbW9vbgBpAGMAbwBtAG8AbwBuAFIAZQBnAHUAbABhAHIAaQBjAG8AbQBvAG8AbgBHAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==";
+
+    tempStyle.textContent = "@font-face{font-family:testfont;src:url(data:font/eot;base64,"+eotBase64+"), url(data:font/opentype;base64,"+otfBase64+") format('opentype')}";
+    doc.getElementsByTagName('head')[0].appendChild(tempStyle);
+
+    // Put test icon (e999) in container to see if it renders
+    tempElm.innerHTML = "&#xefff;";
+    tempElm.setAttribute("style", "font-family:testfont;");
+
+    body.appendChild(tempElm);
+    setTimeout(function(){
+        iconRatio = tempElm.offsetWidth / tempElm.offsetHeight;
+        console.log(iconRatio);
+
+    }, 100);
+    // body.removeChild(tempElm);
+
+
+    // When font doesn't load, ratio will be less than 1. When loaded, it will
+    // be 10. Check if it's more than 5 to account for possible white space. 
+    if (iconRatio >= 5)
+    {
+        return true;
+    }
+    return false;
+})();
+
+console.log( isFontFaceSupported );

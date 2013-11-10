@@ -68,6 +68,10 @@ st.textContent = "@font-face{font-family:testfont;src:url('mhtml:http://zxql.net
       // spn.setAttribute('style','font:99px _,serif;position:absolute;visibility:hidden');
       spn.setAttribute('style','font:1em serif;position:absolute;');
 
+
+
+
+
       if  (!body){
         body = docElement.appendChild(doc.createElement('fontface'));
       }
