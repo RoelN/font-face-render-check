@@ -1,4 +1,3 @@
-// Needs to run when document has loaded!
 var isFontFaceSupported = (function(){
 
     var doc = document,
@@ -13,21 +12,20 @@ var isFontFaceSupported = (function(){
     tempStyle.textContent = "@font-face{font-family:testfont;src:url(data:font/eot;base64,"+eotBase64+"), url(data:font/opentype;base64,"+otfBase64+") format('opentype')}";
     doc.getElementsByTagName('head')[0].appendChild(tempStyle);
 
-    // Put test icon (e999) in container to see if it renders
+    // Put test icon in container to see if it renders
     tempElm.innerHTML = "&#xefff;";
     tempElm.setAttribute("style", "font-family:testfont;");
-
     body.appendChild(tempElm);
-    setTimeout(function(){
+    // setTimeout(function(){
         iconRatio = tempElm.offsetWidth / tempElm.offsetHeight;
         console.log(iconRatio);
-
-    }, 100);
+    // }, 100);
     // body.removeChild(tempElm);
 
 
-    // When font doesn't load, ratio will be less than 1. When loaded, it will
-    // be 10. Check if it's more than 5 to account for possible white space. 
+    // When font doesn't load, ratio will be less than or equal to 1. When
+    // loaded, it will be 10. Check if it's more than 5 to account for 
+    // possible white space. 
     if (iconRatio >= 5)
     {
         return true;
