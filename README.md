@@ -1,8 +1,12 @@
 # @Font-face render check
 
-Work in progress: detect if @font-face is supported
+Detect if @font-face is supported by actually trying to render a test icon. This avoids false positives given by Internet Explorer when downloading fonts is disabled in the security settings.
 
-## How to get the smallest font file
+Works on modern browsers. IE8 and below are not yet supported by this check.
+
+Inspired and partly based on [the solution by Paul Irish](http://www.paulirish.com/2009/font-face-feature-detection/).
+
+## The super small font file
 
 For this check I need a TTF webfont with just one single glyph. I tried to get the smallest possible file by following these steps:
 
