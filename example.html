@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+  <script src="fontfacecheck.js"></script>
+  <script>
+    // Add "fontfacerender" class to HTML tag when @font-face is supported
+    fontFaceCheck.support();
+
+    // Put result in variable "isSupported"
+    fontFaceCheck.support( function(isSupported) { alert(isSupported) } );
+  </script>
+</head>
+<body>
+  Simple test page to see if @font-face is supported. Check the old school alert pop up!
+</body>

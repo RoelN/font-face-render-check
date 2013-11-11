@@ -45,9 +45,3 @@ var fontFaceCheck = new function() {
         }, delayTime);
     }
 }
-
-// Add "fontfacerender" class to HTML tag when @font-face is supported
-fontFaceCheck.support();
-
-// Put result in variable "isSupported"
-fontFaceCheck.support( function(isSupported) { alert(isSupported) } );
