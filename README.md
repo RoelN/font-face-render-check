@@ -10,11 +10,11 @@ Inspired and partly based on [the solution by Paul Irish](http://www.paulirish.c
 
 Because Webkit and Gecko load data-uris asynchronously, there is a small delay before @font-face support can be determined. There are two ways to call the check:
 
-### Add a class to the HTML tag
+### Add a class to the HTML tag...
 
 If you call <code>fontFaceCheck.support();</code>, either a <code>fontfacerender</code> or a <code>no-fontfacerender</code> class will be added to the HTML tag
 
-### Catch the result in a variable
+### ...or catch the result in a variable
 
 Use a callback function to grab the test result: <code>fontFaceCheck.support( function(isSupported) { alert(isSupported) } );</code>
 
