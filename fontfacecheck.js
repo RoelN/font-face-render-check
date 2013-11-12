@@ -11,15 +11,14 @@
  * TODO:
  * - Load external EOT for IE8 and older, since they don't support @font-face with data-uri
  *
- * Based on the work by Paul Irish: http://www.paulirish.com/2009/font-face-feature-detection/
+ * Inspired by the work of Paul Irish: http://www.paulirish.com/2009/font-face-feature-detection/
  */
 var fontFaceCheck = new function() {
 
     var doc = document,
-        $ = doc.createElement,
-        body = doc.body || doc.documentElement.appendChild($("fontface")),
-        tempElm = $("span"),
-        tempStyle = $("style"),
+        body = doc.body || doc.documentElement.appendChild(doc.createElement("fontface")),
+        tempElm = doc.createElement("span"),
+        tempStyle = doc.createElement("style"),
         delay = 5,
         runs = 20,
         supported;
@@ -35,7 +34,7 @@ var fontFaceCheck = new function() {
             }
             body.removeChild(tempElm);
             // When font doesn't load, ratio will be less than or equal to 1. When loaded, it will
-            // be 10. Check if it's more than 5 to account for white space weirdness.
+            // be 10. Check if it's more than 5 to account for offsetWidth/offsetHeight wonkyness.
             if(callback) {
                 callback(supported);
             } else  {
