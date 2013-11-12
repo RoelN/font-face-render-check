@@ -39,7 +39,7 @@ var fontFaceCheck = new function() {
                 callback(supported);
             } else  {
                 var html = doc.getElementsByTagName("html")[0];
-                html.className += supported ? "fontfacerender" : "no-fontfacerender";
+                html.className += supported ? " fontfacerender" : " no-fontfacerender";
             }
         }, delay);
     }
