@@ -16,9 +16,10 @@
 var fontFaceCheck = new function() {
 
     var doc = document,
-        body = doc.body || doc.documentElement.appendChild(doc.createElement("fontface")),
-        tempElm = doc.createElement("span"),
-        tempStyle = doc.createElement("style"),
+        $ = doc.createElement,
+        body = doc.body || doc.documentElement.appendChild($("fontface")),
+        tempElm = $("span"),
+        tempStyle = $("style"),
         delay = 5,
         runs = 20,
         supported;
@@ -49,7 +50,7 @@ var fontFaceCheck = new function() {
         tempStyle.textContent = "@font-face{font-family:pixelambacht;src:url(data:font/truetype;base64,AAEAAAALAIAAAwAwT1MvMghABuMAAAC8AAAAYGNtYXAAlQDaAAABHAAAAGRnYXNw//8ABAAAAYAAAAAIZ2x5Zv8nt3kAAAGIAAAATGhlYWQQRDZ2AAAB1AAAADZoaGVhFeIT5AAAAgwAAAAkaG10eBUAAAAAAAIwAAAADGxvY2EAEAAmAAACPAAAAAhtYXhwAAUAEwAAAkQAAAAgbmFtZf0RHiMAAAJkAAAAwHBvc3QAAwAAAAADJAAAACAAAwIAAZAABQAAAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACAALQHg/+D/4AHgACAAAAAAAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAPAAEACgAAAAGAAQAAQACACAALf//AAAAIAAt////4f/VAAEAAAAAAAAABAAoAAAABgAEAAEAAgAgAC3//wAAACAALf///+H/1QABAAAAAAAAAAAAAf//AAMAAQAAAAAAAAAAAAIADLgAAI24AASNuAH/hTE5AQAAAAABAAD/4BQAAeAABAAMuAAAjbgABI24Af+FESERIREUAOwAAeD+AAIAAAAAAAEAAAABAAC9n9JNXw889QALAgAAAAAAzqbp9AAAAADOfgvFAAD/4BQAAeAAAAAIAAIAAAAAAAAAAQAAAeD/4AAAFAAAAAAAFAAAAQAAAAAAAAAAAAAAAAAAAAMAAAAAAQAAABQAAAAAAAAAABAAJgABAAAAAwAFAAEAAAAAAAIAAAAAAAAAAAAAAAwAAAAAAAAADgCwAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAMAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAUAAAAAAAEAAAAAAAYAAAAAAAEAAAAAAAoAAAAAAAMAAQQJAAEAAgACAAMAAQQJAAIAAgAGAAMAAQQJAAMAAgAKAAMAAQQJAAQAAgAOAAMAAQQJAAUAAAAAAAMAAQQJAAYAAAAAAAMAAQQJAAoAAAAAAAD+/wBy/v8Ab/7/AGX+/wBsAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=)}";
         doc.getElementsByTagName("head")[0].appendChild(tempStyle);
 
-        tempElm.innerText = "-";
+        tempElm.innerHTML = "-";
         tempElm.setAttribute("style", "font-family:pixelambacht;position:fixed;visibility:hidden");
         body.appendChild(tempElm);
         checkSupport(callback);
