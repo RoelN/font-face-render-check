@@ -37,23 +37,24 @@ var fontFaceCheck = new function() {
 
     checkSupport = function(callback) {
         // Use timeout because Gecko and Webkit load data-uri font asynchronously :(
-        setTimeout(function(){
-            supported = (tempElm.offsetWidth / Math.max(1, tempElm.offsetHeight)) >= 5;
-            if(!supported && runs-- > 0)
-            {
+        // setTimeout(function(){
+        supported = (tempElm.offsetWidth / Math.max(1, tempElm.offsetHeight)) >= 5;
+        if(!supported && runs-- > 0)
+        {
+            setTimeout(function(){
                 checkSupport(callback);
-                return;
-            }
-            body.removeChild(tempElm);
-            // When font doesn"t load, ratio will be less than or equal to 1. When loaded, it will
-            // be 10. Check if it"s more than 5 to account for offsetWidth/offsetHeight wonkyness.
-            if(callback) {
-                callback(supported);
-            } else  {
-                var html = doc.getElementsByTagName("html")[0];
-                html.className += supported ? " fontfacerender" : " no-fontfacerender";
-            }
-        }, delay);
+            }, delay);
+            return;
+        }
+        body.removeChild(tempElm);
+        // When font doesn"t load, ratio will be less than or equal to 1. When loaded, it will
+        // be 10. Check if it"s more than 5 to account for offsetWidth/offsetHeight wonkyness.
+        if(callback) {
+            callback(supported);
+        } else  {
+            var html = doc.getElementsByTagName("html")[0];
+            html.className += supported ? " fontfacerender" : " no-fontfacerender";
+        }
     }
 
     // Check @font-face support by trying to render our test icon
