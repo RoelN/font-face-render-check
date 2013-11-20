@@ -4,7 +4,7 @@
  *
  * Released under the MIT License. http://www.opensource.org/licenses/mit-license.php
  *
- * http://www.pixelambacht/fontfacecheck
+ * http://pixelambacht.nl/2013/font-face-render-check/
  *
  * Works for IE5+, Chrome 3.0+, Firefox 3.5+, Opera 12+
  *
