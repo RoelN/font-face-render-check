@@ -71,9 +71,9 @@ var fontFaceCheck = new function() {
             // IE<8 doesn't support fonts via data-uri, so get external .eot file. To assure it's
             // present when the test is executed, download it to cache via a synchronous XHR call
             var request = new XMLHttpRequest();
-            request.open("GET", "pixelambacht.eot", false);
+            request.open("GET", "./pixelambacht.eot", false);
             request.send(null);
-            tempStyle.styleSheet.cssText = "@font-face{font-family:pixelambacht;src:url('/pixelambacht.eot');}";
+            tempStyle.styleSheet.cssText = "@font-face{font-family:pixelambacht;src:url('./pixelambacht.eot');}";
         }
         else
         {
