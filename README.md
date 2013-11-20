@@ -6,6 +6,8 @@ Works on all modern desktop browsers, and even antique IEs. IE8 and below use an
 
 Inspired and partly based on [the solution by Paul Irish](http://www.paulirish.com/2009/font-face-feature-detection/).
 
+Read more about it [here](http://pixelambacht.nl/2013/font-face-render-check/).
+
 ## Usage
 
 Because Webkit and Gecko load data-uris asynchronously, there is a small delay before @font-face support can be determined. There are two ways to use the check:
