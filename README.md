@@ -21,13 +21,3 @@ If you call <code>fontFaceCheck.support();</code>, either a <code>fontfacerender
 Use a callback function to grab the test result:
 
 <code>fontFaceCheck.support( function(isSupported) { alert(isSupported) } );</code>
-
-## The super small font file
-
-For this check I needed a TTF webfont with just one single glyph. I tried to get the smallest possible file by following these steps:
-
-1. Produce an SVG file with a simple 10:1 rectangle
-2. Create a font set via [Icomoon](http://icomoon.io/). I originally set the glyph to the space character as this is a required character anyway, so we'd actually have one single glyph in the font. But this glyph doesn't render in my Chrome on Windows 7 (it does on Linux Mint), so I use another font where the test icon is set to the dash.
-3. I remove all excess metadata, like version, fontname etc. with [TTFEdit](http://ttfedit.sourceforge.net/) so only the bare minimum is left.
-
-The resulting file size is 836 bytes. (The space-only one is 784 bytes.) Pretty sweet!
