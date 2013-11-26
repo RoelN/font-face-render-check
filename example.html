@@ -7,9 +7,15 @@
     // fontFaceCheck.support();
 
     // Put result in variable "isSupported"
-    fontFaceCheck.support( function(isSupported) { alert(isSupported) } );
+    fontFaceCheck.support(false, function(isSupported) {
+    	var text = document.createElement("strong");
+
+    	text.innerHTML = isSupported;
+        document.body.appendChild(text);
+
+	});
   </script>
 </head>
 <body>
-  Simple test page to see if @font-face is supported. Check the old school alert pop up!
+	If we'd ask this browser if she supports @font-face, she'd say...
 </body>

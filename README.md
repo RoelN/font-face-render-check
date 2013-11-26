@@ -20,4 +20,6 @@ If you call <code>fontFaceCheck.support();</code>, either a <code>fontfacerender
 
 Use a callback function to grab the test result:
 
-<code>fontFaceCheck.support( function(isSupported) { alert(isSupported) } );</code>
+<code>fontFaceCheck.support( false, function(isSupported) { alert(isSupported) } );</code>
+
+If you want to support IE8 and below, you have to pass the path to the EOT font: <code>fontFaceCheck.support('/path/to/font/')</code>. Pass false or null and it defaults to "./".
